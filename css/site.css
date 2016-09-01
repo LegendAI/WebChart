@@ -1,0 +1,144 @@
+body{
+    padding-top: 70px;
+	background-color: #f3f3f3;
+}
+header,footer,nav,div,section,aside,article{
+	border: 0px dotted #000000;
+	border-radius: 0px;
+	margin: 0px;
+}
+
+a,a:hover{
+	font-family: "微软雅黑";
+	text-decoration: none;
+}
+.divContent{
+	min-height: 150px;
+	background-color: white;
+}
+ul{
+	list-style-type: none;
+}
+
+.mydiv{
+filter:progid:DXImageTransform.Microsoft.Shadow(color=,direction=120,strength=3);/*ie*/
+-moz-box-shadow: 0px 1px 5px #c5c5c5;/*firefox*/
+-webkit-box-shadow: 0px 1px 5px #c5c5c5;/*safari或chrome*/
+box-shadow:0px 1px 5px #c5c5c5;/*opera或ie9*/
+}
+.img-head{
+	width: 130px; 
+	height: 130px;
+}
+.associate_name{
+	font-family: "微软雅黑";
+	font-size: 25px;
+}
+.line{
+	width:96%;
+	height:1px;
+	margin:0px auto;
+	padding:0px;
+	background-color:#D5D5D5;
+	overflow:hidden;
+}
+.circle {
+    width: 14px;
+    height: 14px;
+    background: #D87A80;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 7px;
+    white-space: nowrap;
+}
+#yellowSquare {
+    width: 14px;
+    height: 14px;
+    background: #ffba80;
+    border-radius: 2px;
+}
+#graySquare {
+    width: 14px;
+    height: 14px;
+    background: #8d98b3;
+    border-radius: 2px;
+}
+#blueSquare {
+    width: 14px;
+    height: 14px;
+    background: #5ab1ef;
+    border-radius: 2px;
+}
+.bluecircle {
+    width: 14px;
+    height: 14px;
+    background: #5AB1EF;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 7px;
+    white-space: nowrap;
+    margin-left: 5px;
+    margin-top: 2px;
+}
+#greenSquare {
+    width: 14px;
+    height: 14px;
+    background: #97b552;
+    border-radius: 2px;
+    margin-top: 2px;
+}
+.pinkSquare {
+    width: 14px;
+    height: 14px;
+    background: #b6a2de;
+    border-radius: 2px;
+    margin-top: 2px;
+}
+#green2Square{
+	 width: 14px;
+    height: 14px;
+    background: #f586c3;
+    border-radius: 2px;
+    
+}
+.chartLead{
+	text-align: left; 
+	font-size: 18px; 
+	position: relative;
+	margin-left: 10px;
+	top: 13px;
+	color: #5c5c5c;
+}
+.block_head{
+	width: 97%;
+	height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.summaryNumber{
+	text-align: center;
+	font-size: 30px;	
+	color: #d87a80;
+	margin-top: 15px;
+}
+#green3Square {
+    width: 14px;
+    height: 14px;
+    background: #2dc7c9;
+    border-radius: 2px;
+    margin-top: 2px;
+}
+.sumNumber{
+	text-align: center;
+	font-size: 30px;	
+	color: #5AB1EF;
+	margin-top: 15px;
+}
+.navbar-toggle .icon-bar {
+	width: 25px;
+    height: 3px;
+}
+.glyphicon{
+	font-size: 21px;
+    margin-left: 8px;
+}

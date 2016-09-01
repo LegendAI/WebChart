@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+		<title>WebChart</title>
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="css/site.css" />
+		<script src="js/echarts.js"></script>
+		<script src="js/world.js"></script>
+		<!--[if lt IE 9]>
+     		<script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+            <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+      	<![endif]-->
+	</head>
+
+	<body class="container">
+		<div class="navigation_header">
+			<nav class="navbar navbar-default navbar-fixed-top">
+				<div class="container">
+					<div class="navbar-header">
+						<a href="index.html" class="navbar-brand">
+							<span class="glyphicon glyphicon-home"></span>
+						</a>
+						<button class="navbar-toggle" data-toggle="collapse" data-target="#divnav">
+	                        <span class="icon-bar"></span>
+	                        <span class="icon-bar"></span>
+	                        <span class="icon-bar"></span>
+	                    </button>
+					</div>
+					<div id="divnav" class="collapse navbar-collapse">
+						<ul class="nav navbar-nav" style="cursor: pointer">
+							<li>
+								<a>基本信息</a>
+							</li>
+							<li>
+								<a>奖金基数</a>
+							</li>
+							<li>
+								<a>产品权重</a>
+							</li>
+							<li>
+								<a>当季度完成情况</a>
+							</li>
+							<li>
+								<a>其他奖金</a>
+							</li>
+							<li>
+								<a>冻结奖金</a>
+							</li>
+							<li>
+								<a>奖金汇总</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</div>
+		<div class="person_information">
+			<div id="info">
+				<table class="table" rules="none">
+					<tr>
+						<td width="50%" style="text-align: center;">
+							<img src="img/touxiang.jpg" style="" class="img-circle img-head">
+						</td>
+						<td width="50%" style="text-align: center; position: relative; top: 50px;bottom: 50px;">
+							<span class="associate_name">Hi.田翔</span>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<table class="table table-bordered">
+				<tr>
+					<td style='background-color: #f5f7f9'>工号<br/>51073678</td>
+					<td style='background-color: #f5f7f9'>职位<br/>SR.PSR</td>
+
+				</tr>
+
+				<tr>
+					<td style='background-color: #f5f7f9'>区域运营<br/>N.China</td>
+					<td style='background-color: #f5f7f9'>Region<br/>DB.National</td>
+
+				</tr>
+				<tr>
+					<td style='background-color: #f5f7f9'>RSM<br/>定茂乐</td>
+					<td style='background-color: #f5f7f9'>DSM<br/>刘薇</td>
+
+				</tr>
+				<tr>
+					<td style='background-color: #f5f7f9'>入职时间<br/>2011-08-09</td>
+					<td style='background-color: #f5f7f9'>离职时间<br/>2016-00-00</td>
+
+				</tr>
+
+			</table>
+		</div>
+		<div class="divContent mydiv" style="min-height: 260px;">
+			<div class="block_head">
+				<h2 id="bonusBase" class="lead chartLead">奖金基数</h2>
+			</div>
+			<div class="line"></div>
+			<div class="sumNumber">
+				¥44,215.24
+			</div>
+			<br />
+			<div style="width: 95%; margin-left: auto;margin-right: auto">
+				<table class="table" rules="all" bordercolor="white">
+					<tr>
+						<td width="1%" align="left">
+							<div class="bluecircle"></div>
+						</td>
+						<td align="left" width="49%" style="color: #5C5C5C;">季度总奖金基数</td>
+						<td align="right" style="color: #5AB1EF;" width="50%">¥44,215,24</td>
+					</tr>
+					<tr>
+						<td align="right">
+							<div id="greenSquare"></div>
+						</td>
+						<td align="left" style="color: #5C5C5C;">季度定性奖金基数</td>
+						<td align="right" style="color: #ababab">¥34,215,24</td>
+					</tr>
+					<tr>
+						<td align="right">
+							<div class="pinkSquare"></div>
+						</td>
+						<td align="left" style="color: #5C5C5C;">季度定量奖金基数</td>
+						<td align="right" style="color: #ababab;">¥10,000,00</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="divContent mydiv" style="min-height: 270px;">
+			<div class="block_head">
+				<h2 id="productRatio" class="lead chartLead">产品权重</h2>
+			</div>
+			<div class="line"></div>
+			<div id="main" style="width: 99%;height:200px;"></div>
+			<script type="text/javascript">
+				// 基于准备好的dom，初始化echarts实例
+				var myChart1 = echarts.init(document.getElementById('main'));
+
+				// 指定图表的配置项和数据
+				var option = {
+					title: {
+
+						x: 'center'
+					},
+					tooltip: {
+						trigger: 'item',
+						formatter: "{b}:{d}%"
+					},
+					grid: {
+						left: '3%',
+						right: '4%',
+						bottom: '3%',
+						containLabel: true
+					},
+					calculable: true,
+					series: [{
+							name: '产品权重',
+							type: 'pie',
+							radius: ['20%', '70%'],
+							center: ['50%', '50%'],
+							roseType: 'radius',
+							label: {
+								normal: {
+									show: true
+								},
+								emphasis: {
+									show: true
+								}
+							},
+							data: [{
+									value: 50.4,
+									name: 'JANJMAIC'
+								}, {
+									value: 72,
+									name: 'JANJMAIB'
+								}, {
+									value: 108,
+									name: 'JANJMAIA'
+								}, {
+									value: 129.6,
+									name: 'JANJMT'
+								},
+
+							],
+							itemStyle: {
+								normal: {
+									color: function(params) {
+										var colorList = [
+											'#D87A80', '#5AB1EF', '#2dc7c9', '#ffBA80',
+										];
+										return colorList[params.dataIndex]
+									}
+								}
+							}
+
+						},
+
+					]
+				};
+				myChart1.setOption(option);
+			</script>
+		</div>
+		<div class="divContent mydiv" style="min-height: 100px;">
+			<div class="block_head">
+				<h2 id="productBonus" class="lead chartLead">当季度完成情况</h2>
+			</div>
+			<div class="line"></div>
+			<div id="main2" style="height:400px;"></div>
+
+			<script type="text/javascript">
+				// 基于准备好的dom，初始化echarts实例
+				var myChart2 = echarts.init(document.getElementById('main2'));
+
+				// 指定图表的配置项和数据
+				var option = {
+					baseOption: {
+						tooltip: {
+							trigger: 'item',
+							axisPointer: { // 坐标轴指示器，坐标轴触发有效
+								type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+							}
+						},
+						legend: {
+							data: ['JANJMAIA', 'JANJMAIB', 'JANJMAIC', '当季度销量', '销量指标'],
+							selectedMode: false,
+							itemGap: 10,
+							itemWidth: 14
+						},
+						grid: {
+							left: '5%',
+							bottom: '7%',
+							containLabel: true
+						},
+						xAxis: {
+							type: 'category',
+							nameGap: 10,
+							data: ['AIA', 'AIB', 'AIC', '总量'],
+							axisTick: {
+								alignWithLabel: true,
+								length: 1
+							},
+							axisLabel: {
+								show: true,
+								textStyle: {
+									fontSize: 10,
+									color: '#5c5c5c'
+								},
+								rotate: 45
+							},
+							axisLine: {
+								lineStyle: {
+									color: '#f3f3f3'
+								}
+							}
+						},
+						yAxis: [{
+							type: 'value',
+							name: '万元',
+							nameTextStyle: {
+								fontSize: 15,
+								color: '#5c5c5c'
+							},
+							axisLabel: {
+								show: true,
+								textStyle: {
+									color: '#5c5c5c'
+								}
+							},
+							axisLine: {
+								lineStyle: {
+									color: '#f3f3f3'
+								}
+							},
+							splitLine: {
+								show: true,
+								lineStyle: {
+									color: '#f3f3f3'
+								}
+							}
+						}],
+						series: [{
+								name: 'JANJMAIA',
+								type: 'bar',
+								stack: '11',
+								barWidth: '60%',
+								data: [1.90, , , ],
+								color: ['#ffba80'],
+								label: {
+									normal: {
+										show: true,
+										position: 'insideTop',
+										textStyle: {
+											color: '#ffffff'
+										},
+
+									}
+								},
+
+							}, {
+								name: 'JANJMAIB',
+								type: 'bar',
+								stack: '11',
+								barWidth: '60%',
+								data: [, 2.05, , ],
+								color: ['#2dc7c9'],
+								label: {
+									normal: {
+										show: true,
+										position: 'insideTop',
+										textStyle: {
+											color: '#ffffff'
+										}
+									}
+								},
+							}, {
+								name: 'JANJMAIC',
+								type: 'bar',
+								stack: '11',
+								barWidth: '60%',
+								data: [, , 1.00, ],
+								color: ['#5ab1ef'],
+								label: {
+									normal: {
+										show: true,
+										position: 'insideTop',
+										textStyle: {
+											color: '#ffffff'
+										}
+									}
+								},
+							}, {
+								name: '当季度销量',
+								type: 'bar',
+								stack: '11',
+								barWidth: '60%',
+								data: [, , , 2.55],
+								color: ['#d87a80'],
+								label: {
+									normal: {
+										show: true,
+										position: 'insideTop',
+										textStyle: {
+											color: '#ffffff'
+										}
+									}
+								},
+							},
+
+							{
+								name: '销量指标',
+								type: 'bar',
+								stack: '11',
+								barWidth: '60%',
+								color: ['#e0e0e0'],
+								data: [2.10, 0.75, 0.50, 1.95],
+								label: {
+									normal: {
+										show: true,
+										position: 'top',
+										formatter: '{c}'
+									}
+								},
+							}
+						]
+					},
+
+					media: [{
+						option: {
+							legend: {
+								show: true,
+								right: '10%',
+								top: '6%',
+								orient: 'vertical',
+								textStyle: {
+									color: "#5c5c5c"
+								}
+							},
+							grid: {
+								right: '30%',
+							}
+						}
+					}, {
+						query: {
+							maxWidth: 450
+						},
+						option: {
+							legend: {
+								show: false
+							},
+							grid: {
+								right: '3%',
+							}
+						}
+					}]
+				};
+				myChart2.setOption(option);
+			</script>
+		</div>
+		<div class="divContent mydiv">
+			<div class="block_head">
+				<h2 id="otherBonus" class="lead chartLead">其他奖金</h2>
+			</div>
+			<div class="line"></div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div>
+						<div id="otherBonusDetail" class="bonusChart" style="margin: 0 auto; width: 98%;height:400px;">
+						</div>
+					</div>
+					<script type="text/javascript">
+						// 基于准备好的dom，初始化echarts实例
+						var myChart3 = echarts.init(document.getElementById('otherBonusDetail'));
+						// 指定图表的配置项和数据
+						var option = {
+							baseOption: {
+								tooltip: {
+									trigger: 'item',
+									axisPointer: { // 坐标轴指示器，坐标轴触发有效
+										type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+									}
+								},
+								legend: {
+									data: ['产品完成奖', '医院进药奖', '定性奖金', '代管辖区奖'],
+									selectedMode: false,
+									itemGap: 10,
+									itemWidth: 14
+								},
+								grid: {
+									left: '5%',
+									right: '3%',
+									bottom: '10%',
+									containLabel: true
+								},
+								xAxis: [{
+									type: 'category',
+									data: ['产品完成奖', '医院进药奖', '定性奖金', '代管辖区奖'],
+									axisTick: {
+										alignWithLabel: true,
+										length: 0
+									},
+									axisLabel: {
+										show: true,
+										textStyle: {
+											fontSize: 10,
+											color: '#5c5c5c'
+										},
+										rotate: 45,
+
+									},
+									axisLine: {
+										lineStyle: {
+											color: '#f3f3f3'
+										}
+									}
+								}],
+								yAxis: [{
+									type: 'value',
+									name: '万元',
+									nameTextStyle: {
+										fontSize: 15,
+										color: '#5c5c5c'
+									},
+									axisLabel: {
+										show: true,
+										textStyle: {
+											color: '#5c5c5c'
+
+										}
+									},
+									axisLine: {
+										lineStyle: {
+											color: '#f3f3f3'
+										}
+									},
+									splitLine: {
+										show: true,
+										lineStyle: {
+											color: '#f3f3f3'
+										}
+									}
+								}],
+								series: [{
+										name: '产品完成奖',
+										type: 'bar',
+										stack: '11',
+										barWidth: '60%',
+										data: [1.90, , , ],
+										color: ['#2dc7c9'],
+										label: {
+											normal: {
+												show: true,
+												position: 'insideTop',
+												textStyle: {
+													color: 'white'
+												}
+											}
+										},
+									}, {
+										name: '医院进药奖',
+										type: 'bar',
+										stack: '11',
+										barWidth: '60%',
+										data: [, 3.5, , ],
+										color: ['#ffba80'],
+										label: {
+											normal: {
+												show: true,
+												position: 'insideTop',
+												textStyle: {
+													color: 'white'
+												}
+											}
+										},
+									}, {
+										name: '定性奖金',
+										type: 'bar',
+										stack: '11',
+										barWidth: '60%',
+										data: [, , 4.50, ],
+										color: ['#d87a80'],
+										label: {
+											normal: {
+												show: true,
+												position: 'insideTop',
+												textStyle: {
+													color: 'white'
+												}
+											}
+										},
+									}, {
+										name: '代管辖区奖',
+										type: 'bar',
+										stack: '11',
+										barWidth: '60%',
+										data: [, , , 2.15],
+										color: ['#5ab1ef'],
+										label: {
+											normal: {
+												show: true,
+												position: 'insideTop',
+												textStyle: {
+													color: 'white'
+												}
+											}
+										},
+									},
+
+								]
+							},
+							media: [{
+								option: {
+									legend: {
+										show: true,
+										right: '10%',
+										top: '6%',
+										orient: 'vertical',
+										textStyle: {
+											color: "#5c5c5c"
+										}
+									},
+									grid: {
+										right: '30%',
+									}
+								}
+							}, {
+								query: {
+									maxWidth: 450
+								},
+								option: {
+									legend: {
+										show: false
+									},
+									grid: {
+										right: '3%',
+									}
+								}
+							}]
+
+						};
+						// 使用刚指定的配置项和数据显示图表。
+						myChart3.setOption(option);
+					</script>
+				</div>
+			</div>
+		</div>
+		<div class="divContent mydiv" style="min-height: 100px;">
+			<div class="block_head">
+				<h2 id="frozenBonus" class="lead chartLead">当季度冻结奖金 <a id="example" tabindex="0" role="button" data-placement="bottom" data-toggle="popover" data-trigger="focus" data-content="我是冻结奖金">
+			         <img src="img/arrows48px.ico"  width="20px" height="20px"/>    
+			      </a></h2>
+			</div>
+
+			<div class="line"></div>
+			<div class="row">
+				<div class="col-md-12">
+					<div style="width: 96%; margin-left: auto;margin-right: auto">
+						<table width="100%">
+							<tr style="text-align: center;">
+								<td rowspan="2" width="50%" style="border:solid #f3f3f3; border-width:0px 1px 0px 0px;">
+									<div class="text-center">
+										<div id="frozenBonusChart" style="margin: 0 auto; width: 170px;height: 170px;"></div>
+									</div>
+								</td>
+								<td width="50%" height="84px" style="border:solid #f3f3f3; border-width:0px 0px 1px 0px;">
+									<span style=" font-size: 24px; color: #8d98b3;"> ¥6,635.92</span>
+									<br>
+									<span style=" font-size: 14px; color: #5c5c5c;"> 本季度冻结奖金</span>
+							</tr>
+							<tr style="text-align: center;">
+								<td>
+									<span style=" font-size: 24px; color: #8d98b3;"> ¥4,448.91</span>
+									<br>
+									<span style=" font-size: 14px; color: #5c5c5c;"> 冻结代管辖区奖金</span>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<script type="text/javascript">
+						// 基于准备好的dom，初始化echarts实例
+						var myChart4 = echarts.init(document.getElementById('frozenBonusChart'));
+
+						// 指定图表的配置项和数据
+						var option = {
+							tooltip: {
+								trigger: 'item',
+								formatter: "{a} <br/>{b}: {c} ({d}%)",
+								position: ['30%', '50%']
+							},
+							legend: {
+								orient: 'vertical',
+								data: ['当季度第三个月销量占比'],
+								x: 'center',
+								bottom: 13,
+								itemWidth: 14,
+								selectedMode: false,
+								textStyle: {
+									color: "#5c5c5c"
+								}
+							},
+							series: [{
+								name: '当季度销量',
+								type: 'pie',
+								radius: ['40%', '60%'],
+								center: ['50%', '45%'],
+								avoidLabelOverlap: false,
+								label: {
+									normal: {
+										show: false,
+										position: 'center',
+										textStyle: {
+											fontSize: '15',
+											fontWeight: 'bold'
+										},
+										formatter: '{d}%'
+										
+									},
+									emphasis: {
+										show: true,
+										textStyle: {
+											fontSize: '15',
+											fontWeight: 'bold'
+										},
+										formatter: '{d}%'
+									}
+								},
+								labelLine: {
+									normal: {
+										show: false
+									}
+								},
+								data: [{
+										value: 43,
+										name: '当季度第三个月销量占比',
+										itemStyle: {
+											normal: {
+												color: '#f39878'
+											}
+										}
+									}, {
+										value: 71,
+										name: '当季度前两个月销量',
+										itemStyle: {
+											normal: {
+												color: '#e2eae9'
+											},
+											emphasis: {
+												color: 'e2eae9'
+											}
+										}
+									},
+
+								]
+							}]
+						};
+						// 使用刚指定的配置项和数据显示图表。
+						myChart4.setOption(option);
+					</script>
+
+				</div>
+
+			</div>
+		</div>
+		<div class="divContent mydiv">
+			<div class="block_head">
+				<h2 id="summaryBonus" class="lead chartLead">奖金汇总</h2>
+			</div>
+			<div class="line"></div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div>
+						<div class="summaryNumber">
+							¥16,635.92
+						</div>
+						<br />
+						<div style="width: 95%; margin-left: auto;margin-right: auto">
+							<table class="table-condensed" rules="all" bordercolor="white">
+								<tr style="color: #D87A80;">
+									<td width="1%" align="right">
+										<div class="circle"></div>
+									</td>
+									<td align="left" width="49%" style="color: #5C5C5C">实发奖金</td>
+									<td align="right" width="50%" style="color: #D87A80;">¥16,635.92</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<div id="yellowSquare"></div>
+									</td>
+									<td align="left" style="color: #5C5C5C">特殊奖励奖金</td>
+									<td align="right" style="color: #ababab">¥1626.34</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<div id="green2Square"></div>
+									</td>
+									<td align="left" style="color: #5C5C5C">最终奖金调整</td>
+									<td align="right" style="color: #ababab">¥764.92</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<div id="graySquare"></div>
+									</td>
+									<td align="left" style="color: #5C5C5C">释放冻结奖</td>
+									<td align="right" style="color: #ababab">¥6635.92</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<div id="green3Square"></div>
+									</td>
+									<td align="left" style="color: #5C5C5C">调整奖金2</td>
+									<td align="right" style="color: #ababab">¥123.92</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<div class="pinkSquare"></div>
+									</td>
+									<td align="left" style="color: #5C5C5C">调整奖金1</td>
+									<td align="right" style="color: #ababab">¥661.92</td>
+								</tr>
+								<tr>
+									<td align="right">
+										<div id="blueSquare"></div>
+									</td>
+									<td align="left" style="color: #5C5C5C">当季度总奖金</td>
+									<td align="right" style="color: #ababab">¥10,000.00</td>
+								</tr>
+							</table>
+						</div>
+
+					</div>
+					<div id="summaryBonusChart" style="width: 95%;height: 280px;"></div>
+					<script type="text/javascript">
+						// 基于准备好的dom，初始化echarts实例
+						var myChart5 = echarts.init(document.getElementById('summaryBonusChart'));
+
+						// 指定图表的配置项和数据
+						var option = {
+							baseOption: {
+								tooltip: {
+									trigger: 'item',
+									formatter: "{a} <br/>{b}: {c} ({d}%)",
+									position: ['30%', '5%']
+								},
+								legend: {
+									data: ['当季度总奖金', '调整奖金1', '调整奖金2', '释放冻结奖', '最终奖金调整', '特殊奖励奖金'],
+									textStyle: {
+										color: "#5c5c5c"
+									}
+								},
+								series: [{
+									name: '奖金组成',
+									type: 'pie',
+
+									data: [{
+										value: 7486.164,
+										name: '当季度总奖金',
+										itemStyle: {
+											normal: {
+												color: '#5ab1ef'
+											}
+										}
+									}, {
+										value: 831.796,
+										name: '调整奖金1',
+										itemStyle: {
+											normal: {
+												color: '#b7a1e0'
+											}
+										}
+									}, {
+										value: 2495.388,
+										name: '调整奖金2',
+										itemStyle: {
+											normal: {
+												color: '#2dc7c9'
+											}
+										}
+									}, {
+										value: 1663.592,
+										name: '释放冻结奖',
+										itemStyle: {
+											normal: {
+												color: '#8d98b3'
+											}
+										}
+									}, {
+										value: 2495.388,
+										name: '最终奖金调整',
+										itemStyle: {
+											normal: {
+												color: '#f586c3'
+											}
+										}
+									}, {
+										value: 1626.34,
+										name: '特殊奖励奖金',
+										itemStyle: {
+											normal: {
+												color: '#ffba80'
+											}
+										}
+									}]
+								}]
+							},
+							media: [{
+									query: {
+										maxWidth: 375
+									},
+									option: {
+										legend: {
+											orient: 'vertical',
+											x: 'right',
+											y: 'center',
+											align: 'left',
+											selectedMode: false,
+											itemWidth: 16,
+											itemHeight: 16,
+											itemGap: 15,
+											textStyle: {
+												fontSize: 14,
+												color: "#5c5c5c"
+											}
+										},
+										series: [{
+											radius: ['0%', '60%'],
+											center: ['35%', '46%'],
+											label: {
+												normal: {
+
+													show: false,
+													position: 'outer', //文字显示位置,如上图中的1.0,1.1字样
+													textStyle: {
+														fontSize: '14',
+														fontWeight: 'normal'
+													}
+												},
+												emphasis: {
+													show: false
+												}
+
+											},
+											labelLine: {
+												normal: {
+													show: false
+												},
+												emphasis: {
+													show: false
+												}
+											}
+										}]
+									}
+								}, {
+									query: {
+										minWidth: 400
+									},
+									option: {
+										legend: {
+											orient: 'vertical',
+											x: 'right',
+											y: 'center',
+											align: 'left',
+											selectedMode: false,
+											itemWidth: 16,
+											itemHeight: 16,
+											itemGap: 15,
+											textStyle: {
+												fontSize: 14,
+												color: "#5c5c5c"
+											}
+										},
+										series: [{
+											radius: ['0%', '60%'],
+											center: ['35%', '46%'],
+											label: {
+												normal: {
+													show: true,
+													position: 'outer', //文字显示位置,如上图中的1.0,1.1字样
+													textStyle: {
+														fontSize: '14',
+														fontWeight: 'normal'
+													}
+												},
+
+											},
+											labelLine: {
+												normal: {
+													show: true
+												}
+											}
+										}]
+									}
+								}
+
+							]
+
+						};
+
+						// 使用刚指定的配置项和数据显示图表。
+						myChart5.setOption(option);
+					</script>
+				</div>
+			</div>
+		</div>
+		<div class="divContent mydiv">
+			<div class="block_head">
+				<h2 id="map" class="lead chartLead">地图</h2>
+			</div>
+			<div class="line"></div>
+			<div class="row">
+				<div class="col-sm-12"> 
+					<div>
+						<div style="width: 95%; margin-left: auto;margin-right: auto">
+							<div id="mapcharts" style="width: 95%;height: 280px;"></div>
+							<script type="text/javascript">
+								// 基于准备好的dom，初始化echarts实例
+								var myChart6 = echarts.init(document.getElementById('mapcharts'));
+
+								option = {
+									title: {
+										text: '',
+										left: 'center',
+										top: 'top'
+									},
+									tooltip: {
+										trigger: 'item',
+										formatter: function(params) {
+											var value = (params.value + '').split('.');
+											value = value[0].replace(/(\d{1,3})(?=(?:\d{3})+(?!\d))/g, '$1,') +
+												'.' + value[1];
+											return params.seriesName + '<br/>' + params.name + ' : ' + value;
+										}
+									},
+
+									visualMap: {
+										type: 'piecewise',
+										min: 0,
+										max: 10,
+										pieces: [{
+											gt: 0,
+											lte: 4,
+											color: '#fee090',
+											label: '0-4'
+										}, {
+											gt: 4,
+											lte: 7,
+											color: '#e0f3f8',
+											label: '4-7'
+										}, {
+											gt: 7,
+											lte: 10,
+											color: '#ffffbf',
+											label: '7-8'
+										}, ],
+										realtime: false,
+										orient: 'horizontal',
+										bottom: '6%'
+
+									},
+									series: [{
+										name: 'World Population (2010)',
+										type: 'map',
+										mapType: 'world',
+										roam: true,
+										itemStyle: {
+											emphasis: {
+												label: {
+													show: true
+												}
+											}
+										},
+										data: [{
+											name: 'Australia',
+											value: 1.812
+										}, {
+											name: 'Afghanistan',
+											value: 1.812
+										}, {
+											name: 'Angola',
+											value: 2.124
+										}, {
+											name: 'China',
+											value: 3.465
+										}, {
+											name: 'Greenland',
+											value: 4.546
+										}, {
+											name: 'Iran',
+											value: 5.485
+										}, {
+											name: 'Canada',
+											value: 5.485
+										}, {
+											name: 'Iraq',
+											value: 6.38
+										}, {
+											name: 'Iceland',
+											value: 7.042
+										}, {
+											name: 'Israel',
+											value: 8.368
+										}, {
+											name: 'Russia',
+											value: 8.368
+										}, {
+											name: 'Italy',
+											value: 9.978
+										}]
+									}]
+								};
+								// 使用刚指定的配置项和数据显示图表。
+								myChart6.setOption(option);
+							</script>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="divContent mydiv">
+			<div class="block_head">
+				<h2 id="heatChart" class="lead chartLead">热力图</h2>
+			</div>
+			<div class="line"></div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div style="width: 95%; margin-left: auto; margin-right: auto;">
+						<div id="heat" style="width: 100%; height: 400px;"></div>
+						<script>
+							var myChart7 = echarts.init(document.getElementById("heat"));
+							var hours = ['12a', '1a', '2a', '3a', '4a', '5a', '6a',
+							        '7a', '8a', '9a','10a','11a',
+							        '12p', '1p', '2p', '3p', '4p', '5p',
+							        '6p', '7p', '8p', '9p', '10p', '11p'];
+							var days = ['Sat', 'Fri', 'Thu',
+							        'Wed', 'Tue', 'Mon', 'Sun'];
+							
+							var data = [[0,0,5],[0,1,1],[0,2,0],[0,3,0],[0,4,0],[0,5,0],[0,6,0],[0,7,0],[0,8,0],[0,9,0],[0,10,0],[0,11,2],[0,12,4],[0,13,1],[0,14,1],[0,15,3],[0,16,4],[0,17,6],[0,18,4],[0,19,4],[0,20,3],[0,21,3],[0,22,2],[0,23,5],[1,0,7],[1,1,0],[1,2,0],[1,3,0],[1,4,0],[1,5,0],[1,6,0],[1,7,0],[1,8,0],[1,9,0],[1,10,5],[1,11,2],[1,12,2],[1,13,6],[1,14,9],[1,15,11],[1,16,6],[1,17,7],[1,18,8],[1,19,12],[1,20,5],[1,21,5],[1,22,7],[1,23,2],[2,0,1],[2,1,1],[2,2,0],[2,3,0],[2,4,0],[2,5,0],[2,6,0],[2,7,0],[2,8,0],[2,9,0],[2,10,3],[2,11,2],[2,12,1],[2,13,9],[2,14,8],[2,15,10],[2,16,6],[2,17,5],[2,18,5],[2,19,5],[2,20,7],[2,21,4],[2,22,2],[2,23,4],[3,0,7],[3,1,3],[3,2,0],[3,3,0],[3,4,0],[3,5,0],[3,6,0],[3,7,0],[3,8,1],[3,9,0],[3,10,5],[3,11,4],[3,12,7],[3,13,14],[3,14,13],[3,15,12],[3,16,9],[3,17,5],[3,18,5],[3,19,10],[3,20,6],[3,21,4],[3,22,4],[3,23,1],[4,0,1],[4,1,3],[4,2,0],[4,3,0],[4,4,0],[4,5,1],[4,6,0],[4,7,0],[4,8,0],[4,9,2],[4,10,4],[4,11,4],[4,12,2],[4,13,4],[4,14,4],[4,15,14],[4,16,12],[4,17,1],[4,18,8],[4,19,5],[4,20,3],[4,21,7],[4,22,3],[4,23,0],[5,0,2],[5,1,1],[5,2,0],[5,3,3],[5,4,0],[5,5,0],[5,6,0],[5,7,0],[5,8,2],[5,9,0],[5,10,4],[5,11,1],[5,12,5],[5,13,10],[5,14,5],[5,15,7],[5,16,11],[5,17,6],[5,18,0],[5,19,5],[5,20,3],[5,21,4],[5,22,2],[5,23,0],[6,0,1],[6,1,0],[6,2,0],[6,3,0],[6,4,0],[6,5,0],[6,6,0],[6,7,0],[6,8,0],[6,9,0],[6,10,1],[6,11,0],[6,12,2],[6,13,1],[6,14,3],[6,15,4],[6,16,0],[6,17,0],[6,18,0],[6,19,0],[6,20,1],[6,21,2],[6,22,2],[6,23,6]];
+							
+							data = data.map(function (item) {
+							    return [item[1], item[0], item[2] || '-'];
+							});
+							
+							var option = {
+							    tooltip: {
+							        position: 'top'
+							    },
+							    animation: false,
+							    grid: {
+							        height: '50%',
+							       	left: '11%'
+							    },
+							    xAxis: {
+							        type: 'category',
+							        data: hours,
+							        splitArea: {
+							            show: true
+							        }
+							    },
+							    yAxis: {
+							        type: 'category',
+							        data: days,
+							        splitArea: {
+							            show: true
+							        }
+							    },
+							    visualMap: {
+							        min: 0,
+							        max: 10,
+							        calculable: true,
+							        orient: 'horizontal',
+							        left: 'center',
+							        bottom: '15%',
+							        inRange: {
+							            color: ['#121122', 'rgba(3,4,5,0.4)', 'red'],
+							            symbolSize: [30, 100]
+							        }
+							    },
+							    series: [{
+							        name: 'Punch Card',
+							        type: 'heatmap',
+							        data: data,
+							        label: {
+							            normal: {
+							                show: true
+							            }
+							        },
+							        itemStyle: {
+							            emphasis: {
+							                shadowBlur: 10,
+							                shadowColor: 'rgba(0, 0, 0, 0.5)'
+							            }
+							        }
+							    }]
+							};
+							myChart7.setOption(option);
+						</script>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/jquery.js"></script>
+		<script src="js/bootstrap.js"></script>
+		<script src="js/navbar.js"></script>
+		<script>
+			$(function() {
+				$("#example").popover();
+			});
+		</script>
+		<script>
+			window.addEventListener("resize", function() {
+				myChart1.resize()
+				myChart2.resize()
+				myChart3.resize()
+				myChart4.resize()
+				myChart5.resize()
+				myChart6.resize()
+				myChart7.resize()
+			});
+		</script>
+	</body>
+
+</html>
